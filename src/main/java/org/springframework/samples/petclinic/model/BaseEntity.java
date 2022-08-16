@@ -17,6 +17,9 @@ package org.springframework.samples.petclinic.model;
 
 import java.io.Serializable;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,6 +38,13 @@ public class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	public BaseEntity() {
+	}
+
+	public void connect() throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:derby:memory:myDB;create=true", "login", "myPassword");
+	}
 
 	public Integer getId() {
 		return id;
